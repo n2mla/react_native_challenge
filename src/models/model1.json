@@ -1,53 +1,89 @@
 {
   "name": "Data Model 1",
   "fields": {
-    "x": {
-      "label": "X",
+    "a": {
+      "label": "A",
       "type": "int",
       "readOnly": false,
       "calculate": null
     },
-    "y": {
-      "label": "Y",
+    "b": {
+      "label": "B",
       "type": "int",
       "readOnly": false,
       "calculate": null
     },
-    "z": {
-      "label": "Z",
+    "c": {
+      "label": "C",
       "type": "int",
       "readOnly": false,
       "calculate": null
     },
-    "sum": {
-      "label": "Sum",
+    "d": {
+      "label": "D",
       "type": "int",
-      "readOnly": true,
-      "calculate": "sum(x,z,y)"
+      "readOnly": false,
+      "calculate": null
     },
-    "multiple": {
-      "label": "Multiple",
+    "e": {
+      "label": "E",
       "type": "int",
-      "readOnly": true,
-      "calculate": "multiple(x,z,y)"
+      "readOnly": false,
+      "calculate": null
+    },
+    "f": {
+      "label": "F",
+      "type": "int",
+      "readOnly": false,
+      "calculate": null
+    },
+    "g": {
+      "label": "G",
+      "type": "int",
+      "readOnly": false,
+      "calculate": null
+    },
+    "h": {
+      "label": "H",
+      "type": "int",
+      "readOnly": false,
+      "calculate": null
+    },
+    "i": {
+      "label": "I",
+      "type": "int",
+      "readOnly": false,
+      "calculate": null
+    },
+    "j": {
+      "label": "J",
+      "type": "int",
+      "readOnly": false,
+      "calculate": null
+    },
+    "k": {
+      "label": "K",
+      "type": "int",
+      "readOnly": false,
+      "calculate": null
     },
     "mean": {
       "label": "Mean",
       "type": "int",
       "readOnly": true,
-      "calculate": "mean(x,z,y)"
+      "calculate": "mean(a,b,c,d,e,f,g,h,i,j,k)"
     },
     "median": {
       "label": "Median",
       "type": "int",
       "readOnly": true,
-      "calculate": "median(x,z,y)"
+      "calculate": "median(a,b,c,d,e,f,g,h,i,j,k)"
     },
     "deviation": {
       "label": "Standard deviation",
       "type": "int",
       "readOnly": true,
-      "calculate": "deviation(x,z,y)"
+      "calculate": "deviation(a,b,c,d,e,f,g,h,i,j,k)"
     }
   }
 }
