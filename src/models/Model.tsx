@@ -1,6 +1,9 @@
 import { View, Text, Button, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Picker } from '@react-native-picker/picker';
 import model1 from './model1.json'
+import model2 from './model2.json'
+
 import { Input, Label } from './fields';
 import { Field, ModelObjectType } from './types';
 import { deviation, mean, median, multiple, sum } from './calculateMethods'
@@ -8,18 +11,23 @@ import { deviation, mean, median, multiple, sum } from './calculateMethods'
 const renderFields = (fieldType: string, data: Field) => {
   switch (fieldType) {
     case 'input':
-      return <Input {...data} />
+      return <Input key={data.name} {...data} />
     case 'label':
-      return <Label {...data} />
+      return <Label key={data.name} {...data} />
     default:
       return null;
   }
 }
 
 const Model = () => {
-  const fields = model1.fields as ModelObjectType
   const [data, setData] = useState<{ [key: string]: string }>({})
   const [result, setResult] = useState<{ [key: string]: { value: string, label: string } }>({})
+  const [selectedItemPicker, setSelectedItemPicker] = useState<number | null>(1);
+  const [selectedModel, setSelectedModel] = useState<{ name: string, fields: ModelObjectType }>();
+
+  useEffect(() => {
+    setSelectedModel(selectedItemPicker === 1 ? model1 : model2)
+  }, [selectedItemPicker])
 
   const onChange = (name: string, value: string) => setData({
     ...data,
@@ -50,42 +58,63 @@ const Model = () => {
     return -1
   }
 
-  const onSubmit = () => {
-    const methods: { [k: string]: string }[] = []
-    Object.keys(fields).map(k => {
-      const method = fields[k].calculate
-      if (fields[k].readOnly && method !== null) {
-        methods.push({
-          [k]: method
-        })
-      }
-    })
-
-    let calculatedValues: { [k: string]: { value: string, label: string } } = {}
-    methods.forEach(m => {
-      const key = Object.keys(m)[0]
-      const value = calculate(m[key])
-      calculatedValues = {
-        ...calculatedValues,
-        [key]: {
-          value: [value || 0].toString(),
-          label: fields[key].label
-        }
-      }
-    })
-    setResult(calculatedValues)
+  const convertData = (data: any, dataType: string) => {
+    if (isNaN(data)) {
+      return data;
+    }
+    switch (dataType) {
+      case "int":
+        return parseInt(data);
+      case "float":
+        return parseFloat(data);
+      case "double":
+        return Number(data);
+      case "string":
+        return data.toString();
+      default:
+        return "Invalid data type";
+    }
   }
 
-  return (
-    <View>
-      <Text style={styles.title}>{model1.name.toString()}</Text>
+  const onSubmit = () => {
+    const fields = selectedModel?.fields
+    if (fields) {
+      const methods: { [k: string]: string }[] = []
+      Object.keys(fields).map(k => {
+        const method = fields[k].calculate
+        if (fields[k].readOnly && method !== null) {
+          methods.push({
+            [k]: method
+          })
+        }
+      })
+
+      let calculatedValues: { [k: string]: { value: string, label: string } } = {}
+      methods.forEach(m => {
+        const key = Object.keys(m)[0]
+        const value = calculate(m[key])
+        calculatedValues = {
+          ...calculatedValues,
+          [key]: {
+            value: [value || 0].toString(),
+            label: fields[key].label
+          }
+        }
+      })
+      setResult(calculatedValues)
+    }
+  }
+
+  const renderModel = (fields: ModelObjectType | undefined) => (
+    fields ? <>
+      <Text style={styles.title}>{selectedModel?.name.toString()}</Text>
       {
         Object.keys(fields).map((k: string) => renderFields(
           fields[k].readOnly ? "label" : "input", {
           label: fields[k].label,
           name: k,
           onChange: onChange,
-          value: fields[k].readOnly ? result[k]?.value ?? '' : data[k] ?? ''
+          value: fields[k].readOnly ? convertData(result[k]?.value, fields[k].type) ?? '' : data[k] ?? ''
         }
         ))
       }
@@ -95,9 +124,28 @@ const Model = () => {
           onPress={onSubmit}
         />
       </View>
+    </> : null
+  )
+
+  return (
+    <View>
+      <Picker
+        style={styles.picker}
+        itemStyle={{ height: 110, fontSize: 16 }}
+        selectedValue={selectedItemPicker}
+        onValueChange={(itemValue, itemIndex) =>
+          setSelectedItemPicker(itemValue)
+        }>
+        <Picker.Item label="Data Model1" value={1} />
+        <Picker.Item label="Data Model2" value={2} />
+      </Picker>
+
+      {renderModel(selectedModel?.fields)}
+
     </View>
   )
 }
+
 
 const styles = StyleSheet.create({
   buttonContainer: {
@@ -106,6 +154,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: '600'
+  },
+  picker: {
   }
 })
 

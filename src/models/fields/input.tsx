@@ -4,7 +4,7 @@ import { Field } from '../types'
 
 export const Input: React.FC<Field> = ({ name, onChange, value, label }) => {
   return (
-    <View>
+    <View key={name}>
       <Text style={styles.label}>{label}</Text>
       <TextInput
         style={styles.input}

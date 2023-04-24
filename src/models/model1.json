@@ -19,54 +19,54 @@
       "readOnly": false,
       "calculate": null
     },
-    "d": {
-      "label": "D",
-      "type": "int",
-      "readOnly": false,
-      "calculate": null
-    },
-    "e": {
-      "label": "E",
-      "type": "int",
-      "readOnly": false,
-      "calculate": null
-    },
-    "f": {
-      "label": "F",
-      "type": "int",
-      "readOnly": false,
-      "calculate": null
-    },
-    "g": {
-      "label": "G",
-      "type": "int",
-      "readOnly": false,
-      "calculate": null
-    },
-    "h": {
-      "label": "H",
-      "type": "int",
-      "readOnly": false,
-      "calculate": null
-    },
-    "i": {
-      "label": "I",
-      "type": "int",
-      "readOnly": false,
-      "calculate": null
-    },
-    "j": {
-      "label": "J",
-      "type": "int",
-      "readOnly": false,
-      "calculate": null
-    },
-    "k": {
-      "label": "K",
-      "type": "int",
-      "readOnly": false,
-      "calculate": null
-    },
+    // "d": {
+    //   "label": "D",
+    //   "type": "int",
+    //   "readOnly": false,
+    //   "calculate": null
+    // },
+    // "e": {
+    //   "label": "E",
+    //   "type": "int",
+    //   "readOnly": false,
+    //   "calculate": null
+    // },
+    // "f": {
+    //   "label": "F",
+    //   "type": "int",
+    //   "readOnly": false,
+    //   "calculate": null
+    // },
+    // "g": {
+    //   "label": "G",
+    //   "type": "int",
+    //   "readOnly": false,
+    //   "calculate": null
+    // },
+    // "h": {
+    //   "label": "H",
+    //   "type": "int",
+    //   "readOnly": false,
+    //   "calculate": null
+    // },
+    // "i": {
+    //   "label": "I",
+    //   "type": "int",
+    //   "readOnly": false,
+    //   "calculate": null
+    // },
+    // "j": {
+    //   "label": "J",
+    //   "type": "int",
+    //   "readOnly": false,
+    //   "calculate": null
+    // },
+    // "k": {
+    //   "label": "K",
+    //   "type": "int",
+    //   "readOnly": false,
+    //   "calculate": null
+    // },
     "mean": {
       "label": "Mean",
       "type": "int",

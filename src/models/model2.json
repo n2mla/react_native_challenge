@@ -1,0 +1,23 @@
+{
+  "name": "Data Model 2",
+  "fields": {
+    "string1": {
+      "label": "String 1",
+      "type": "int",
+      "readOnly": false,
+      "calculate": null
+    },
+    "string2": {
+      "label": "String 2",
+      "type": "int",
+      "readOnly": false,
+      "calculate": null
+    },
+    "sha256": {
+      "label": "Mean",
+      "type": "int",
+      "readOnly": true,
+      "calculate": "mean(a,b,c,d,e,f,g,h,i,j,k)"
+    }
+  }
+}

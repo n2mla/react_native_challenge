@@ -4,7 +4,7 @@ import { Field } from '../types'
 
 export const Label: React.FC<Field> = ({ label, value }) => {
   return (
-    <Text style={styles.label}>{label} : {value}</Text>
+    <Text key={label} style={styles.label}>{label} : {value}</Text>
   )
 }
 
