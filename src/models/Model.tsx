@@ -6,7 +6,7 @@ import model2 from './model2.json'
 
 import { Input, Label } from './fields';
 import { Field, ModelObjectType } from './types';
-import { deviation, mean, median, multiple, sum } from './calculateMethods'
+import { deviation, mean, median, multiple, sha256, sum } from './calculateMethods'
 
 const renderFields = (fieldType: string, data: Field) => {
   switch (fieldType) {
@@ -37,23 +37,27 @@ const Model = () => {
   const calculate = (method: string) => {
     if (method.includes("sum(")) {
       const params = method.substring(4, method.length - 1).split(",");
-      return sum(params.map(p => Number(data[p.trim()])))
+      return sum(params.map(p => Number(data[p.trim()])).filter(v => !isNaN(v)))
     }
     if (method.includes("multiple(")) {
       const params = method.substring(9, method.length - 1).split(",");
-      return multiple(params.map(p => Number(data[p.trim()])))
+      return multiple(params.map(p => Number(data[p.trim()])).filter(v => !isNaN(v)))
     }
     if (method.includes("mean(")) {
       const params = method.substring(5, method.length - 1).split(",");
-      return mean(params.map(p => Number(data[p.trim()])))
+      return mean(params.map(p => Number(data[p.trim()])).filter(v => !isNaN(v)))
     }
     if (method.includes("median(")) {
       const params = method.substring(7, method.length - 1).split(",");
-      return median(params.map(p => Number(data[p.trim()])))
+      return median(params.map(p => Number(data[p.trim()])).filter(v => !isNaN(v)))
     }
     if (method.includes("deviation(")) {
       const params = method.substring(10, method.length - 1).split(",");
-      return deviation(params.map(p => Number(data[p.trim()])))
+      return deviation(params.map(p => Number(data[p.trim()])).filter(v => !isNaN(v)))
+    }
+    if (method.includes("sha256(")) {
+      const params = method.substring(7, method.length - 1).split(",");
+      return sha256(params.map(p => data[p.trim()]))
     }
     return -1
   }
@@ -76,7 +80,7 @@ const Model = () => {
     }
   }
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const fields = selectedModel?.fields
     if (fields) {
       const methods: { [k: string]: string }[] = []
@@ -88,11 +92,10 @@ const Model = () => {
           })
         }
       })
-
       let calculatedValues: { [k: string]: { value: string, label: string } } = {}
-      methods.forEach(m => {
+      for (const m of methods) {
         const key = Object.keys(m)[0]
-        const value = calculate(m[key])
+        const value = await calculate(m[key])
         calculatedValues = {
           ...calculatedValues,
           [key]: {
@@ -100,7 +103,7 @@ const Model = () => {
             label: fields[key].label
           }
         }
-      })
+      }
       setResult(calculatedValues)
     }
   }

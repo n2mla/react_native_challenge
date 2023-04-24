@@ -1,3 +1,5 @@
+import * as Crypto from 'expo-crypto';
+
 export const sum = (numbers: number[]) => {
   return numbers.reduce((sum, num) => sum + num, 0);
 }
@@ -28,4 +30,11 @@ export const deviation = (numbers: number[]) => {
   const variance = sumOfSquaredDiffs / numbers.length;
   const stdDev = Math.sqrt(variance);
   return stdDev;
+}
+
+export const sha256 = async (str: string[]) => {
+  const concatenatedString = str.reduce((prevStr, nextStr) => prevStr + nextStr, '');
+  console.log(concatenatedString)
+  const hash = await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, concatenatedString)
+  return hash.toString();
 }

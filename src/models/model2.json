@@ -14,10 +14,10 @@
       "calculate": null
     },
     "sha256": {
-      "label": "Mean",
-      "type": "int",
+      "label": "SHA256",
+      "type": "string",
       "readOnly": true,
-      "calculate": "mean(a,b,c,d,e,f,g,h,i,j,k)"
+      "calculate": "sha256(string1,string2)"
     }
   }
 }

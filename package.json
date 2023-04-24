@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@react-native-picker/picker": "^2.4.10",
+    "expo": "^48.0.0",
+    "expo-crypto": "~12.2.1",
     "react": "18.2.0",
     "react-native": "0.71.7"
   },
@@ -22,6 +24,7 @@
     "@tsconfig/react-native": "^2.0.2",
     "@types/jest": "^29.2.1",
     "@types/react": "^18.0.24",
+    "@types/react-native-crypto-js": "^1.0.0",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.2.1",
     "eslint": "^8.19.0",
